@@ -13,9 +13,17 @@ const restController = {
         categoryName: r.Category.name
       }))
 
-      return res.render('restaurants', {
-        restaurants: JSON.parse(JSON.stringify(data))
+      Category.findAll({
+        raw: true,
+        nest: true
+      }).then(categories => { // 取出 categories
+        return res.render('restaurants', {
+          restaurants: JSON.parse(JSON.stringify(data)),
+          categories: categories,
+          // categoryId: categoryId
+        })
       })
+
     })
   },
   getRestaurant: (req, res) => {
