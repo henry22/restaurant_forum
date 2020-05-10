@@ -23,13 +23,6 @@
         "require": true,
         "rejectUnauthorized": false
       }
-    },
-    "define": {
-      "charset": "utf8",
-      "dialectOptions": {
-        "collate": "utf8_general_ci"
-      },
-      "timestamps": true
     }
   }
 }
