@@ -37,7 +37,7 @@ module.exports = {
         .map((item, index) =>
           ({
             id: index + 1,
-            name: '中式料理',
+            name: item,
             createdAt: new Date(),
             updatedAt: new Date()
           })
