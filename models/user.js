@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     isAdmin: DataTypes.BOOLEAN // 加入 isAdmin 欄位
   }, {});
   User.associate = function(models) {
-    // associations can be defined here
+    User.hasMany(models.Comment)
   };
   return User;
 };
