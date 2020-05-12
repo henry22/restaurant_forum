@@ -46,11 +46,15 @@ const userController = {
     res.redirect('/signin')
   },
   getUser: (req, res) => {
-    return User.findByPk(req.params.id)
+    return User.findByPk(req.user.id)
       .then(user => {
         return res.render('user', {
-          user: user.toJSON()
+          user: user.toJSON(),
+          editProfile: false
         })
+      })
+      .catch(err => {
+        console.log('Error:', err)
       })
   },
   editUser: (req, res) => {
@@ -60,6 +64,9 @@ const userController = {
           user: user.toJSON(),
           editProfile: true
         })
+      })
+      .catch(err => {
+        console.log('Error:', err)
       })
   },
   putUser: (req, res) => {
@@ -81,6 +88,8 @@ const userController = {
               name: req.body.name,
               image: file ? img.data.link : null
             })
+
+            return user
           })
           .then(user => {
             req.flash('success_messages', 'user was successfully to update')
@@ -94,6 +103,8 @@ const userController = {
             name: req.body.name,
             image: user.image
           })
+
+          return user
         })
         .then(user => {
           req.flash('success_messages', 'user was successfully to update')
