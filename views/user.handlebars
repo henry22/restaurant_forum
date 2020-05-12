@@ -41,7 +41,7 @@
   </div>
   <div class="card-body">
     {{#each user.Comments}}
-      <a class="card-link" href="/restaurants/{{this.Restaurant.CategoryId}}">
+      <a class="card-link" href="/restaurants/{{this.Restaurant.id}}">
         <img class="col-3 p-0" src="{{this.Restaurant.image}}" alt="{{this.Restaurant.name}}">
       </a>
     {{/each}}
