@@ -65,6 +65,41 @@ const restController = {
         restaurant: restaurant.toJSON()
       })
     })
+  },
+  getFeeds: (req, res) => {
+    return Restaurant.findAll({
+      limit: 10,
+      raw: true,
+      nest: true,
+      order: [['createdAt', 'DESC']],
+      include: [Category]
+    }).then(restaurants => {
+      Comment.findAll({
+        limit: 10,
+        raw: true,
+        nest: true,
+        order: [['createdAt', 'DESC']],
+        include: [User, Restaurant]
+      }).then(comments => {
+        return res.render('feeds', {
+          restaurants: restaurants,
+          comments: comments
+        })
+      })
+    })
+  },
+  getRestaurantDashboard: (req, res) => {
+    return Restaurant.findByPk(req.params.id, {
+      include: [
+        Category,
+        Comment
+      ]
+    })
+      .then(restaurant => {
+        return res.render('dashboard', {
+          restaurant: restaurant.toJSON()
+        })
+      })
   }
 }
 
