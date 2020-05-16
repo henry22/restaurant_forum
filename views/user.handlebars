@@ -28,23 +28,84 @@
       {{#if hasCommentRestaurants}}
         <p>{{user.Comments.length}} 已評論餐廳</p>
       {{/if}}
+      {{#if hasFavoritedRestaurants}}
+        <p>{{user.FavoritedRestaurants.length}} 收藏的餐廳</p>
+      {{/if}}
+      {{#if hasFollowings}}
+        <p>{{user.Followings.length}} followings (追蹤者)</p>
+      {{/if}}
+      {{#if hasFollowers}}
+        <p>{{user.Followers.length}} followers (追隨者)</p>
+      {{/if}}
       <form action="/users/{{user.id}}/edit" method="GET">
         <button type="submit" class="btn btn-primary">Edit</button>
       </form>
     </div>
   {{/if}}
 </div>
-{{#if hasCommentRestaurants}}
-<div class="card">
-  <div class="card-header">
-    {{user.Comments.length}} 已評論餐廳
-  </div>
-  <div class="card-body">
-    {{#each user.Comments}}
-      <a class="card-link" href="/restaurants/{{this.Restaurant.id}}">
-        <img class="col-3 p-0" src="{{this.Restaurant.image}}" alt="{{this.Restaurant.name}}">
-      </a>
-    {{/each}}
-  </div>
+<div class="row">
+  {{#if hasCommentRestaurants}}
+    <div class="col-sm-6 mt-3">
+      <div class="card">
+        <div class="card-header">
+          {{user.Comments.length}} 已評論餐廳
+        </div>
+        <div class="card-body">
+          {{#each user.Comments}}
+            <a class="card-link" href="/restaurants/{{this.Restaurant.id}}">
+              <img class="col-2 p-0" src="{{this.Restaurant.image}}" alt="{{this.Restaurant.name}}">
+            </a>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
+  {{#if hasFavoritedRestaurants}}
+    <div class="col-sm-6 mt-3">
+      <div class="card">
+        <div class="card-header">
+          {{user.FavoritedRestaurants.length}} 收藏的餐廳
+        </div>
+        <div class="card-body">
+          {{#each user.FavoritedRestaurants}}
+            <a class="card-link" href="/restaurants/{{this.id}}">
+              <img class="col-2 p-0" src="{{this.image}}" alt="{{this.name}}">
+            </a>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
+  {{#if hasFollowings}}
+    <div class="col-sm-6 mt-3">
+      <div class="card">
+        <div class="card-header">
+          {{user.Followings.length}} followings (追蹤者)
+        </div>
+        <div class="card-body">
+          {{#each user.Followings}}
+            <a class="card-link" href="/users/{{this.id}}">
+              <img class="col-2 p-0" src="{{this.image}}" alt="{{this.name}}">
+            </a>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
+  {{#if hasFollowers}}
+    <div class="col-sm-6 mt-3">
+      <div class="card">
+        <div class="card-header">
+          {{user.Followers.length}} followers (追隨者)
+        </div>
+        <div class="card-body">
+          {{#each user.Followers}}
+            <a class="card-link" href="/users/{{this.id}}">
+              <img class="col-2 p-0" src="{{this.image}}" alt="{{this.name}}">
+            </a>
+          {{/each}}
+        </div>
+      </div>
+    </div>
+  {{/if}}
 </div>
-{{/if}}

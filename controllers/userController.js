@@ -52,16 +52,22 @@ const userController = {
   },
   getUser: (req, res) => {
     return User.findByPk(req.user.id, {
-      include: {
-        model: Comment,
-        include: Restaurant
-      }
-    })
-      .then(user => {
-        return res.render('user', {
+      include: [
+        { model: Comment, include: Restaurant },
+        { model: Restaurant, as: 'FavoritedRestaurants' },
+        { model: User, as: 'Followers' },
+        { model: User, as: 'Followings' }
+      ]
+    }).then(user => {
+      user.dataValues.Comments = nonDuplicatedComments(user.dataValues.Comments)
+
+      return res.render('user', {
           user: user.toJSON(),
           editProfile: false,
-          hasCommentRestaurants: user.dataValues.Comments.length > 0
+          hasCommentRestaurants: user.dataValues.Comments.length > 0,
+          hasFavoritedRestaurants: user.dataValues.FavoritedRestaurants.length > 0,
+          hasFollowings: user.dataValues.Followings.length > 0,
+          hasFollowers: user.dataValues.Followers.length > 0
         })
       })
       .catch(err => {
@@ -206,6 +212,10 @@ const userController = {
         })
     })
   }
+}
+
+function nonDuplicatedComments(arr) {
+  return [...new Map(arr.map(item => [item.UserId, item])).values()]
 }
 
 module.exports = userController
