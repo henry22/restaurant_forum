@@ -64,6 +64,7 @@ module.exports = (app, passport) => {
   app.get('/admin/users', authenticatedAdmin, adminController.getUsers)
   app.put('/admin/users/:id', authenticatedAdmin, adminController.putUsers)
 
+  app.get('/users/top', authenticated, userController.getTopUser)
   app.get('/users/:id', authenticated, userController.getUser)
   app.get('/users/:id/edit', authenticatedUser, userController.editUser)
   app.put('/users/:id', authenticatedUser, upload.single('image'), userController.putUser)
