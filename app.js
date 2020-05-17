@@ -20,6 +20,7 @@ app.engine('handlebars', handlebars({
 })) // Handlebars 註冊樣板引擎
 app.set('view engine', 'handlebars') // 設定使用 Handlebars 做為樣板引擎
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 // setup session and flash
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(flash())
